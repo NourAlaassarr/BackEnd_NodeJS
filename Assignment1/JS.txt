@@ -1,0 +1,35 @@
+//what is the output of And explain your answer
+// answer: Reference error because [] == [] (is a non-premitive data type  (array) and in non_premitive we compare address not the value and each one of them has different address)
+// answer: Reference error because {} == {} (is a non-premitive data type  (objects) and in non_premitive we compare address not the value and each one of them has different address)
+Console.log( [ ]  == [ ] )
+Console.log( { } == { } )
+
+
+//what is the output of this code with explaination
+//Answer A C B is the output , Because this code will be handeled asynchronously and we have  "setTimeout(function print() {console.log("B");}, 0);" which will delay to 0 ms so the output will be ACB
+function main() {
+console.log("A");
+setTimeout(function print() {
+console.log("B");}, 0);
+console.log("C");}
+main();
+
+
+// what is the output of this code with explaination
+// Answer: this code will output 10 because we can redeclare variable with the var keyword so it will update vaalue to existing variable
+var num = 8;
+var num = 10;
+console.log(num);
+
+
+
+//what is the output of this code with explaination
+//Answer RefrenceError can't access 'age' because age is declared with "let" it does support hoist but age is not is not defined at all till line (let age=21)
+// And undeifiend as name is hoised but when console.log(name) excuted, it can find the name variable but without value (so undefined)
+function sayHi() {
+    console.log(name);
+    console.log(age);
+    var name = 'Ayush';
+    let age = 21;
+}
+sayHi();
