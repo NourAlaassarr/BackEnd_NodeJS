@@ -74,23 +74,23 @@ Server.createServer((req, res) => {
     })
     req.on('end',()=>{
       const parse = JSON.parse(data)
-      const TobeDeleted = Post.find((posts)=>{
+      const TobeDeleted = Post.findIndex((posts)=>{
         return posts.id ==parse.id
       })
-      if(TobeDeleted)
+      if(TobeDeleted != -1)
       {
-        Post.pop(parse)
+        Post.splice(TobeDeleted,1)
         res.write(JSON.stringify(Post))
         res.end()
       }
       else{
-        res.write("user not found")
+        res.write("Post not found")
         res.end()
       }
     })
 
   }
-  else if(url =='/updatePost' && method == 'PATCH')   // to update post based on Title
+  else if(url =='/updatePosts' && method == 'PUT')   // to update post based on Title or desciptution or both
   {
     let data
     req.on('data', (chunk)=>{
@@ -106,11 +106,12 @@ Server.createServer((req, res) => {
         toUpdatePost.Title=parsing.Title || toUpdatePost.Title
         toUpdatePost.Describtion = parsing.Describtion|| toUpdatePost.Describtion
         res.write("updated")
+        res.write(JSON.stringify(Post))
         res.end()
       }
       else
       {
-        res.write("both identical")
+        res.write("no change ")
         res.end()
 
       }
@@ -164,7 +165,7 @@ Server.createServer((req, res) => {
       const parseddata = JSON.parse(data);
 
       const CheckUser = Users.find((user) => {
-        return user.id == parseddata.id;
+        return user.Email == parseddata.Email || user.id == parseddata.id;
       });
 
       if (CheckUser) {
@@ -193,7 +194,7 @@ Server.createServer((req, res) => {
     const sortedUsers = Users.slice().sort((a, b) => a.id - b.id);
     res.write(JSON.stringify(sortedUsers));
     res.end();
-  } else if (url == '/Update' && method == 'PATCH')  //to update email if changed
+  } else if (url == '/Update' && method == 'PATCH')  //to update name if changed
   { 
     let data;
     req.on('data', (chunk) => {
@@ -202,15 +203,15 @@ Server.createServer((req, res) => {
     req.on('end', () => {
       const parseddata = JSON.parse(data);
       const toupdate = Users.find((user) => {
-        return user.id == parseddata.id && ( user.Email != parseddata.Email || user.name != parseddata.name);
+        return user.Email == parseddata.Email && user.id == parseddata.id && user.name != parseddata.name
       });
       if (toupdate) {
         toupdate.name = parseddata.name || toupdate.name;
-        toupdate.Email = parseddata.Email || toupdate.Email;
         res.write("User updated successfully");
+        res.write(JSON.stringify(Users));
         res.end();
       } else {
-        res.write("the user is identical");
+        res.write("no change in the user");
         res.end();
       }
     });
@@ -222,11 +223,11 @@ Server.createServer((req, res) => {
     });
     req.on('end', () => {
       const parseddata = JSON.parse(data);
-      const deleteuser = Users.find((user) => {
-        return user.id == parseddata.id;
-      });
-      if (deleteuser) {
-        Users.pop(parseddata);
+      const deleteuser = Users.findIndex((user) => {
+        return user.id == parseddata.id || user.Email == parseddata.Email });
+      
+      if (deleteuser != -1) {
+        Users.splice(deleteuser, 1);
         res.write(JSON.stringify(Users));
         res.end();
       } else {
@@ -234,7 +235,7 @@ Server.createServer((req, res) => {
         res.end();
       }
     });
-  } else if (url == '/SearchbyId' && method == 'POST') //search by id
+  } else if (url == '/SearchbyId' && method == 'GET') //search by id
   {
     let data;
     req.on('data', (chunk) => {
@@ -258,7 +259,7 @@ Server.createServer((req, res) => {
       }
     });
   } else {
-    res.write("invalid API");
+    res.write("404 invalid API");
     res.end();
   }
 }).listen(3000, () => {
