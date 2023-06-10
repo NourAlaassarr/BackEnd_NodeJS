@@ -1,5 +1,5 @@
 Assignment 2
-using http*
+using http and EXpress
 * Create two arrays (user array, post array)
 
 User end points
