@@ -1,0 +1,116 @@
+-- phpMyAdmin SQL Dump
+-- version 5.2.0
+-- https://www.phpmyadmin.net/
+--
+-- Host: 127.0.0.1
+-- Generation Time: Jun 20, 2023 at 04:47 AM
+-- Server version: 10.4.27-MariaDB
+-- PHP Version: 8.2.0
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+START TRANSACTION;
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
+--
+-- Database: `usersdata`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `products`
+--
+
+CREATE TABLE `products` (
+  `userid` int(11) DEFAULT NULL,
+  `pname` varchar(255) DEFAULT NULL,
+  `pDescription` varchar(255) DEFAULT NULL,
+  `createdby` varchar(255) DEFAULT NULL,
+  `price` float DEFAULT NULL,
+  `pid` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `products`
+--
+
+INSERT INTO `products` (`userid`, `pname`, `pDescription`, `createdby`, `price`, `pid`) VALUES
+(1, 'Starville', 'whiting cream', 'starvillecompany', 91, 1),
+(2, 'Nutella', 'chocolate', 'NutellaComp', 125, 2),
+(1, 'cerave', 'foaming cleanser', 'Ceravecompany', 350, 3),
+(3, 'Cornflakes', 'cearials', 'Temmies', 130, 4),
+(5, 'Nescafe', 'BlackCoffe', 'Nescafe', 160, 8);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `users`
+--
+
+CREATE TABLE `users` (
+  `name` varchar(255) DEFAULT NULL,
+  `Email` varchar(255) DEFAULT NULL,
+  `password` varchar(255) DEFAULT NULL,
+  `Id` int(11) NOT NULL,
+  `Age` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `users`
+--
+
+INSERT INTO `users` (`name`, `Email`, `password`, `Id`, `Age`) VALUES
+('nour', 'nona@gmail.com', 'nona192002222', 1, 0),
+('aymouna', 'aymouna@gmail.com', 'aymouna12', 2, 44),
+('farah', 'farouha@gmail.com', 'farouha123', 3, 22),
+('Reham', 'reham@gmail.com', 'roro12', 4, 44),
+('yassin', 'yassin@gmail.com', 'yasso1234', 5, 12),
+('mohamed', 'mohamed12@hotmail.com', 'mohamed89', 6, 22),
+('kamal', 'kamal@hotmail.com', 'kamal234', 7, 60),
+('thanaa', 'thanaa@gmail.com', 'sosofarid', 8, 44),
+('saloha', 'sasa@gmail.com', 'salaoha', 9, 2),
+('jodyAymanabdullah', 'joji@gmail.com', 'cute12', 11, 9);
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `products`
+--
+ALTER TABLE `products`
+  ADD PRIMARY KEY (`pid`),
+  ADD KEY `products_ibfk_1` (`userid`);
+
+--
+-- Indexes for table `users`
+--
+ALTER TABLE `users`
+  ADD PRIMARY KEY (`Id`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `products`
+--
+ALTER TABLE `products`
+  MODIFY `pid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
+-- AUTO_INCREMENT for table `users`
+--
+ALTER TABLE `users`
+  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
