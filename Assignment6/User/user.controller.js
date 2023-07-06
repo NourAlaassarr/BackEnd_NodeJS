@@ -144,7 +144,7 @@ const ageBetween = async (req,res,next)=>
     }
 }
 
-
+// get user profile with user posts(using populate)
 const join = async (req, res, next) => {
     try{
         const products = await PostModel.find({})
