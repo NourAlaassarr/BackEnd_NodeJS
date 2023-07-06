@@ -1,0 +1,41 @@
+Search points:
+- how to relate two collections
+
+Using References:
+-store a reference to documents from one collection in another collection
+- use the ObjectId type and the ref property to establish the reference
+-References allow us to create relationships between collections and perform population to retrieve related documents
+
+Using Embedding:
+- directly embed documents from one collection into another collection
+- define a subdocument schema within the parent schema to represent the embedded documents
+-Embedding allows us to store related data within a single document and retrieve it without the need for population
+...........................................................................................................
+
+- findOneAndDelete  VS findOneAndRemove
+
+    findoneandremove:(older version)
+
+-Removes the document but does not return the deleted document as the result
+-
+-The removed document is not returned as a Mongoose document; instead, you receive a plain JavaScript object representing the removed document
+-
+-This method can be useful when you only need to remove the document and don't require access to its properties or methods.
+-
+-return -> query
+-it calls findandmodify(give it condition to search with (query)),and flag-> remove true
+
+...............................................................................................................
+
+    findOneAndDelete:( better in performance)
+
+-Uses the findOneAndDelete method provided by the MongoDB driver
+-
+-Removes the document and returns the deleted document as the result
+-
+-The removed document is returned as a Mongoose document, allowing you to access its properties and methods
+-
+-This method is recommended when you need to perform additional operations on the deleted document
+-return -> query
+-
+-This function differs slightly from Model.findOneAndRemove() in that findOneAndRemove() becomes a MongoDB findAndModify() command, as opposed to a findOneAndDelete() command. For most mongoose use cases,
